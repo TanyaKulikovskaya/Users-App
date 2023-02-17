@@ -97,6 +97,8 @@ export default {
       color: $gray;
     }
     &__input {
+      display: block;
+      width: 100%;
       height: 48px;
       padding: 12px 15px;
       font-size: 20px;
