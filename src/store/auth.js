@@ -5,6 +5,12 @@ export default {
   namespaced: true,
   state: {
     token: localStorage.getItem("token") || "",
+    errorMessage: "",
+  },
+  getters: {
+    errorMessage(state) {
+      return state.errorMessage;
+    },
   },
   mutations: {
     SET_TOKEN(state, token) {
@@ -15,13 +21,22 @@ export default {
       localStorage.removeItem("token");
       state.token = "";
     },
+    SET_ERROR_MESSAGE(state, message) {
+      state.errorMessage = message;
+    },
   },
   actions: {
     async login({ commit }, credentials) {
-      const { token } = await AuthUser.login(credentials);
-      if (token) {
-        commit("SET_TOKEN", token);
-        router.replace({ name: "root" });
+      try {
+        const { token } = await AuthUser.login(credentials);
+        if (token) {
+          commit("SET_TOKEN", token);
+          commit("SET_ERROR_MESSAGE", "");
+          router.replace({ name: "root" });
+        }
+      } catch (error) {
+        commit("CLEAR_TOKEN");
+        commit("SET_ERROR_MESSAGE", error.response.data.non_field_errors[0]);
       }
     },
     logout({ commit }) {

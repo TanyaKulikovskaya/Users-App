@@ -31,20 +31,25 @@
             </span>
           </div>
         </div>
-        <button
-          type="submit"
-          class="btn form__btn"
-          :disabled="v$.$errors.length"
-        >
-          Login
-        </button>
+        <div class="form-field">
+          <button
+            type="submit"
+            class="btn form__btn"
+            :disabled="v$.$errors.length"
+          >
+            Login
+          </button>
+          <span v-show="errorMsg" class="error form__error">{{
+            errorMsg
+          }}</span>
+        </div>
       </form>
     </div>
   </main>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 
@@ -61,6 +66,11 @@ export default {
       username: { required },
       password: { required },
     };
+  },
+  computed: {
+    ...mapGetters({
+      errorMsg: "auth/errorMessage",
+    }),
   },
   methods: {
     ...mapActions({
