@@ -5,13 +5,17 @@
       <form class="form" @submit.prevent="logIn">
         <div class="form__fields">
           <div class="form-field">
-            <label for="username" class="form__label">E-mail</label>
+            <label for="username" class="form__label">Username</label>
             <input
               id="username"
               type="text"
               v-model="username"
               class="form__input"
+              @blur="v$.username.$touch"
             />
+            <span v-if="v$.username.$error" class="error form__error">
+              Username field is required.
+            </span>
           </div>
           <div class="form-field">
             <label for="password" class="form__label">Password</label>
@@ -20,10 +24,20 @@
               type="password"
               v-model="password"
               class="form__input"
+              @blur="v$.password.$touch"
             />
+            <span v-if="v$.password.$error" class="error form__error">
+              Password field is required.
+            </span>
           </div>
         </div>
-        <button type="submit" class="btn form__btn">Login</button>
+        <button
+          type="submit"
+          class="btn form__btn"
+          :disabled="v$.$errors.length"
+        >
+          Login
+        </button>
       </form>
     </div>
   </main>
@@ -31,29 +45,37 @@
 
 <script>
 import { mapActions } from "vuex";
+import { useVuelidate } from "@vuelidate/core";
+import { required } from "@vuelidate/validators";
 
 export default {
+  setup: () => ({ v$: useVuelidate() }),
   data() {
     return {
       username: "",
       password: "",
     };
   },
+  validations() {
+    return {
+      username: { required },
+      password: { required },
+    };
+  },
   methods: {
     ...mapActions({
       signIn: "auth/login",
     }),
-    logIn() {
+    async logIn() {
+      const result = await this.v$.$validate();
+      if (!result) {
+        return;
+      }
       const data = {
         username: this.username,
         password: this.password,
       };
       this.signIn(data);
-      this.resetForm();
-    },
-    resetForm() {
-      this.username = "";
-      this.password = "";
     },
   },
 };
@@ -112,6 +134,16 @@ export default {
         border-color: $blue;
       }
     }
+    &__error {
+      display: block;
+      width: 100%;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 0;
+      font-size: 14px;
+      line-height: 24px;
+    }
     &__btn {
       min-width: 176px;
       border-radius: $radius;
@@ -123,6 +155,12 @@ export default {
       &:hover {
         background-color: $blue;
         color: $white;
+      }
+      &:disabled {
+        background-color: transparent;
+        color: $dark;
+        border-color: $dark;
+        pointer-events: none;
       }
     }
   }

@@ -18,14 +18,10 @@ export default {
   },
   actions: {
     async login({ commit }, credentials) {
-      try {
-        const { token } = await AuthUser.login(credentials);
-        if (token) {
-          commit("SET_TOKEN", token);
-          router.replace({ name: "root" });
-        }
-      } catch {
-        commit("CLEAR_TOKEN");
+      const { token } = await AuthUser.login(credentials);
+      if (token) {
+        commit("SET_TOKEN", token);
+        router.replace({ name: "root" });
       }
     },
     logout({ commit }) {

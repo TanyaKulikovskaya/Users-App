@@ -18,7 +18,17 @@
       body-text-direction="center"
       hide-footer
       alternating
-    />
+    >
+      <template #item-is_active="user">
+        {{ user.is_active ? "active" : "inactive" }}
+      </template>
+      <template #item-last_login="user">
+        {{ user.last_login ? "user.last_login" : "-" }}
+      </template>
+      <template #item-is_superuser="user">
+        {{ user.is_superuser ? "superuser" : "user" }}
+      </template>
+    </EasyDataTable>
   </main>
 </template>
 
@@ -43,9 +53,9 @@ export default {
       { text: "USERNAME", value: "username" },
       { text: "FIRST NAME", value: "first_name" },
       { text: "LAST NAME", value: "last_name" },
-      { text: "ACTIVE", value: "is_active" },
+      { text: "STATUS", value: "is_active" },
       { text: "LAST LOGIN", value: "last_login" },
-      { text: "SUPER USER", value: "is_superuser" },
+      { text: "ROLE", value: "is_superuser" },
     ]);
     const { users, load } = getUsers();
     load();
