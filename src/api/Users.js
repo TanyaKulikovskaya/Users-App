@@ -29,4 +29,12 @@ export default {
       return response.data;
     }
   },
+  async updateUserStatus(id, { isActive }) {
+    const response = await API.patch(`/users/${id}/`, {
+      is_active: isActive,
+    });
+    if (response) {
+      return response.data;
+    }
+  },
 };

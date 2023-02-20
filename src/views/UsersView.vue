@@ -15,12 +15,19 @@
       :search-field="searchField"
       :search-value="searchValue"
       :rows-per-page="10"
+      :loading="loading"
       table-class-name="customize-table"
       body-text-direction="center"
       alternating
     >
       <template #item-is_active="user">
-        {{ user.is_active ? "active" : "inactive" }}
+        <button
+          class="users-row__btn"
+          :class="user.is_active ? 'active' : 'blocked'"
+          @click="toggleUserStatus(user)"
+        >
+          {{ user.is_active ? "active" : "blocked" }}
+        </button>
       </template>
       <template #item-last_login="user">
         {{ user.last_login ? "user.last_login" : "-" }}
@@ -35,6 +42,7 @@
 <script>
 import TheHeader from "../components/TheHeader.vue";
 import getUsers from "../composables/getUsers";
+import Users from "../api/Users";
 
 import { ref } from "vue";
 
@@ -46,6 +54,7 @@ export default {
     TheHeader,
   },
   setup() {
+    const loading = ref(false);
     const searchField = ref("username");
     const searchValue = ref("");
     const headers = ref([
@@ -59,13 +68,39 @@ export default {
     ]);
     const { users, load } = getUsers();
     load();
-    return { headers, users, sortBy, sortType, searchField, searchValue };
+    const toggleUserStatus = async (user) => {
+      loading.value = true;
+      try {
+        const data = {
+          isActive: !user.is_active,
+        };
+        const updatedUser = await Users.updateUserStatus(user.id, data);
+        users.value = users.value.map((item) =>
+          item.id === user.id ? { ...updatedUser } : item
+        );
+        loading.value = false;
+      } catch (err) {
+        console.log(err);
+      } finally {
+        loading.value = false;
+      }
+    };
+    return {
+      loading,
+      headers,
+      users,
+      sortBy,
+      sortType,
+      searchField,
+      searchValue,
+      toggleUserStatus,
+    };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.customize-table { 
+.customize-table {
   --easy-table-header-font-color: #272727;
   --easy-table-footer-background-color: #78858b;
   --easy-table-footer-font-color: #eaeaea;
@@ -89,6 +124,26 @@ export default {
   margin-bottom: 12px;
   &:focus {
     border: 1px solid $blue;
+  }
+}
+
+.users-row__btn {
+  padding: 2px 8px;
+  min-width: 80px;
+  border: none;
+  &.active {
+    background-color: $indigo;
+    color: $cian;
+    &:hover {
+      background-color: $blue;
+    }
+  }
+  &.blocked {
+    background-color: $red;
+    color: $white;
+    &:hover {
+      background-color: $ruby;
+    }
   }
 }
 </style>

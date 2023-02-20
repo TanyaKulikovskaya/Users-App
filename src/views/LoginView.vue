@@ -77,6 +77,10 @@ export default {
       signIn: "auth/login",
     }),
     async logIn() {
+      const result = await this.v$.$validate();
+      if (!result) {
+        return;
+      }
       const data = {
         username: this.username,
         password: this.password,
