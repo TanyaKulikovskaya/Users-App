@@ -1,6 +1,6 @@
 <template>
   <the-header />
-  <main class="container">
+  <main v-if="users.length > 0" class="container">
     <input
       type="text"
       placeholder="Search by username"
@@ -8,15 +8,15 @@
       class="users__input"
     />
     <EasyDataTable
-      v-if="users.length > 0"
       :headers="headers"
       :items="users"
       :sort-by="sortBy"
       :sort-type="sortType"
       :search-field="searchField"
       :search-value="searchValue"
+      :rows-per-page="10"
+      table-class-name="customize-table"
       body-text-direction="center"
-      hide-footer
       alternating
     >
       <template #item-is_active="user">
@@ -65,6 +65,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.customize-table { 
+  --easy-table-header-font-color: #272727;
+  --easy-table-footer-background-color: #78858b;
+  --easy-table-footer-font-color: #eaeaea;
+}
 .container {
   padding-top: 20px;
   padding-bottom: 20px;

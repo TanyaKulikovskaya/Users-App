@@ -17,4 +17,16 @@ export default {
       return response.data;
     }
   },
+  async createUser({ userName, firstName, lastName, pass, isActive }) {
+    const response = await API.post("/users/", {
+      username: userName,
+      first_name: firstName,
+      last_name: lastName,
+      password: pass,
+      is_active: isActive,
+    });
+    if (response) {
+      return response.data;
+    }
+  },
 };

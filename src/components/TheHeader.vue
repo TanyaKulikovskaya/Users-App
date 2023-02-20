@@ -2,8 +2,11 @@
   <header class="header">
     <nav class="header__menu menu">
       <div class="menu__nav">
-        <router-link :to="{ name: 'users' }">
-          <span class="menu__link link">Users</span>
+        <router-link :to="{ name: 'users' }" class="menu__link link">
+          Users
+        </router-link>
+        <router-link :to="{ name: 'user-form' }" class="menu__link link">
+          Add User
         </router-link>
       </div>
       <div class="menu__actions">
@@ -38,8 +41,18 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    &__nav {
+      display: flex;
+      a {
+        color: inherit;
+        &:hover {
+          color: $indigo;
+        }
+      }
+    }
     &__link {
       display: block;
+      margin-right: 40px;
     }
     &__btn {
       background-color: transparent;
@@ -60,19 +73,6 @@ export default {
     }
     .router-link-exact-active {
       color: $blue;
-      span {
-        position: relative;
-      }
-      span::after {
-        content: "";
-        display: block;
-        position: absolute;
-        bottom: -16px;
-        left: 0;
-        height: 2px;
-        width: 100%;
-        background-color: $blue;
-      }
     }
   }
 }
