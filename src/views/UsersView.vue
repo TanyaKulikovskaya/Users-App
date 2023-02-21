@@ -78,7 +78,6 @@ export default {
         users.value = users.value.map((item) =>
           item.id === user.id ? { ...updatedUser } : item
         );
-        loading.value = false;
       } catch (err) {
         console.log(err);
       } finally {

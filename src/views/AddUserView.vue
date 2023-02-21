@@ -67,7 +67,7 @@
           </div>
           <div class="form-field form-field--row">
             <input id="status" type="checkbox" v-model="form.isActive" />
-            <label for="status" class="form__label">Active</label>
+            <label for="status" class="form__label">Activate user</label>
           </div>
         </div>
         <div class="form-field">
