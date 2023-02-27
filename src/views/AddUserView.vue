@@ -92,7 +92,7 @@ import TheHeader from "../components/TheHeader.vue";
 import { ref, computed, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
-import { required, maxLength } from "@vuelidate/validators";
+import { required, maxLength, helpers, minLength } from "@vuelidate/validators";
 import Users from "../api/Users";
 
 export default {
@@ -123,6 +123,11 @@ export default {
       pass: {
         required,
         maxLength: maxLength(passInputLength.value),
+        minLength: helpers.withMessage(
+          ({ $params }) =>
+            `Password length must be at least ${$params.min} characters `,
+          minLength(8)
+        ),
       },
     }));
 

@@ -21,7 +21,7 @@
       }
       .form-field {
         position: relative;
-        padding-bottom: 24px;
+        padding-bottom: 32px;
       }
       .form-field--row {
         display: flex;
@@ -61,9 +61,9 @@
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        bottom: 0;
+        top: 70px;
         font-size: 14px;
-        line-height: 24px;
+        line-height: 16px;
       }
       &__btn {
         min-width: 176px;
