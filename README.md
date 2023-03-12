@@ -3,8 +3,8 @@
 ### Demo - <https://vue-user-app.netlify.app/>
 
 ### Credentials:
-Username: test_super
-Password: Nf<U4f<rDbtDxAPn
+* Username: test_super
+* Password: Nf<U4f<rDbtDxAPn
 
 This template should help get you started developing with Vue 3 in Vite.
 
