@@ -159,7 +159,7 @@ export default {
 .container {
   padding-top: 20px;
   padding-bottom: 20px;
-  height: calc(100vh - 60px);
+  min-height: calc(100vh - 60px);
   display: flex;
   justify-content: center;
   align-items: center;
