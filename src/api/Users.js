@@ -2,7 +2,7 @@ import axios from "axios";
 import auth from "../store/auth.js";
 
 const API = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
+  baseURL: "https://test-assignment.emphasoft.com/api/v1",
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
