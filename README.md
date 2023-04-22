@@ -6,15 +6,25 @@
 * Username: test_super
 * Password: Nf<U4f<rDbtDxAPn
 
-This template should help get you started developing with Vue 3 in Vite.
+### Built with
 
-### Recommended IDE Setup
+* [Vue.js 3.x.](https://vuejs.org/)
+* [Vuex](https://vuex.vuejs.org/) (state management)
+* [Vue Router](https://router.vuejs.org/) (navigation between views)
+* [Axios](https://axios-http.com/) (making an HTTP requests)
+* [Vuelidate](https://vuelidate-next.netlify.app/) (model-based validation)
+* [Vue3 easy data table](https://hc200ok.github.io/vue3-easy-data-table-doc/) (customizable data table component)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+### Features
 
-### Customize configuration
+This project implements the following features:
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+* JWT authentication
+* Fetching users data from API
+* Adding new users
+* Changing user status
+* Sorting users by ID
+* Searching users by username
 
 ### Project Setup
 
